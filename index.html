@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRIV EdgeAI CM5 – Industrial Edge AI Controller | Cytron</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --iriv-primary: #013068;
+            --iriv-accent: #00A5DC;
+            --iriv-highlight: #C62844;
+            --iriv-bg: #FFFFFF;
+            --iriv-bg-alt: #F8F9FA;
+            --iriv-text: #1A1A1A;
+            --iriv-text-light: #666666;
+            --iriv-border: #E0E0E0;
+            --iriv-shadow: rgba(1, 48, 104, 0.1);
+            --iriv-radius: 20px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--iriv-text);
+            line-height: 1.6;
+            background-color: var(--iriv-bg);
+            overflow-x: hidden;
+        }
+
+        .iriv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .iriv-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--iriv-border);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .iriv-nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .iriv-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--iriv-primary);
+        }
+
+        .iriv-nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .iriv-nav-links a {
+            text-decoration: none;
+            color: var(--iriv-text);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .iriv-nav-links a:hover,
+        .iriv-nav-links a.active {
+            color: var(--iriv-primary);
+        }
+
+        .iriv-nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--iriv-accent);
+        }
+
+        .iriv-mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--iriv-primary);
+        }
+
+        /* Hero Section */
+        .iriv-hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, #F8F9FA 0%, #FFFFFF 100%);
+        }
+
+        .iriv-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .iriv-hero-text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--iriv-primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .iriv-hero-text p {
+            font-size: 20px;
+            color: var(--iriv-text-light);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .iriv-hero-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .iriv-hero-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: var(--iriv-text);
+        }
+
+        .iriv-hero-features li::before {
+            content: '✓';
+            width: 24px;
+            height: 24px;
+            background: var(--iriv-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .iriv-cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .iriv-btn {
+            padding: 14px 32px;
+            border-radius: var(--iriv-radius);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .iriv-btn-primary {
+            background: var(--iriv-primary);
+            color: white;
+        }
+
+        .iriv-btn-primary:hover {
+            background: #014080;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--iriv-shadow);
+        }
+
+        .iriv-btn-secondary {
+            background: white;
+            color: var(--iriv-primary);
+            border: 2px solid var(--iriv-primary);
+        }
+
+        .iriv-btn-secondary:hover {
+            background: var(--iriv-primary);
+            color: white;
+        }
+
+        .iriv-hero-image {
+            background: linear-gradient(135deg, var(--iriv-primary) 0%, var(--iriv-accent) 100%);
+            border-radius: var(--iriv-radius);
+            padding: 0;
+            box-shadow: 0 20px 60px var(--iriv-shadow);
+            aspect-ratio: 4/3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .iriv-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--iriv-radius);
+            display: block;
+        }
+
+        .iriv-hero-image-caption {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.55);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .iriv-trust-strip {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--iriv-border);
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            color: var(--iriv-text-light);
+            font-size: 14px;
+        }
+
+        .iriv-trust-strip span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .iriv-trust-strip span::before {
+            content: '•';
+            color: var(--iriv-accent);
+            font-weight: 700;
+        }
+
+        /* Section Styles */
+        .iriv-section {
+            padding: 80px 0;
+        }
+
+        .iriv-section-alt {
+            background: var(--iriv-bg-alt);
+        }
+
+        .iriv-section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--iriv-primary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .iriv-section-subtitle {
+            font-size: 18px;
+            color: var(--iriv-text-light);
+            text-align: center;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Tech Specs Cards */
+        .iriv-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .iriv-spec-card {
+            background: white;
+            padding: 32px;
+            border-radius: var(--iriv-radius);
+            box-shadow: 0 4px 20px var(--iriv-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .iriv-spec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px var(--iriv-shadow);
+        }
+
+        .iriv-spec-card h3 {
+            font-size: 14px;
+            color: var(--iriv-text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .iriv-spec-card p {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--iriv-primary);
+        }
+
+        .iriv-spec-download {
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .iriv-btn-ghost {
+            background: transparent;
+            color: var(--iriv-primary);
+            border: 2px solid var(--iriv-primary);
+        }
+
+        .iriv-btn-ghost:hover {
+            background: var(--iriv-primary);
+            color: white;
+        }
+
+        /* Comparison Table */
+        .iriv-comparison {
+            background: white;
+            border-radius: var(--iriv-radius);
+            box-shadow: 0 4px 20px var(--iriv-shadow);
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .iriv-comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--iriv-primary);
+            color: white;
+            padding: 24px;
+        }
+
+        .iriv-comparison-header > div {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .iriv-comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--iriv-border);
+        }
+
+        .iriv-comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .iriv-comparison-row > div:first-child {
+            font-weight: 600;
+            color: var(--iriv-text);
+        }
+
+        .iriv-comparison-row > div {
+            color: var(--iriv-text-light);
+        }
+
+        .iriv-variant-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            background: var(--iriv-accent);
+            color: white;
+        }
+
+        .iriv-help-box {
+            background: linear-gradient(135deg, var(--iriv-bg-alt) 0%, white 100%);
+            border: 2px solid var(--iriv-accent);
+            border-radius: var(--iriv-radius);
+            padding: 32px;
+            text-align: center;
+        }
+
+        .iriv-help-box h3 {
+            font-size: 20px;
+            color: var(--iriv-primary);
+            margin-bottom: 12px;
+        }
+
+        .iriv-help-box p {
+            color: var(--iriv-text-light);
+            margin-bottom: 24px;
+        }
+
+        /* Use Cases Buttons */
+        .iriv-usecases-buttons {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+            max-width: 1040px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .iriv-usecases-buttons::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .iriv-usecases-buttons::-webkit-scrollbar-track {
+            background: var(--iriv-bg-alt);
+            border-radius: 10px;
+        }
+
+        .iriv-usecases-buttons::-webkit-scrollbar-thumb {
+            background: var(--iriv-accent);
+            border-radius: 10px;
+        }
+
+        .iriv-usecase-btn {
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid var(--iriv-border);
+            border-radius: var(--iriv-radius);
+            color: var(--iriv-text);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .iriv-usecase-btn:hover {
+            border-color: var(--iriv-accent);
+            color: var(--iriv-accent);
+            transform: translateY(-2px);
+        }
+
+        .iriv-usecase-btn.active {
+            background: var(--iriv-primary);
+            border-color: var(--iriv-primary);
+            color: white;
+        }
+
+        .iriv-usecase-btn.active:hover {
+            background: #014080;
+            border-color: #014080;
+            color: white;
+        }
+
+        /* Use Cases Carousel Wrapper */
+        .iriv-usecases-wrapper {
+            position: relative;
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 40px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+
+        /* Use Cases Carousel */
+        .iriv-usecases-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .iriv-usecases-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            will-change: transform;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .iriv-usecase-card {
+            background: transparent;
+            border-radius: var(--iriv-radius);
+            overflow: hidden;
+            box-shadow: none;
+            transition: all 0.4s ease;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            flex-shrink: 0;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .iriv-usecase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: none;
+        }
+
+        .iriv-usecase-card.collapsed .iriv-usecase-content {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
+            transform: translateX(100%);
+        }
+
+        .iriv-usecase-card.expanded .iriv-usecase-content {
+            max-height: 1000px;
+            opacity: 1;
+            padding-top: 24px;
+            padding-bottom: 28px;
+            transform: translateX(0);
+        }
+
+        .iriv-usecase-card.collapsed .iriv-usecase-preview {
+            display: block;
+        }
+
+        .iriv-usecase-card.expanded .iriv-usecase-preview {
+            display: none;
+        }
+
+        .iriv-usecase-image {
+            height: 280px;
+            background: transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .iriv-usecase-image img {
+            width: 80%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .iriv-usecase-content {
+            padding: 24px 24px 28px;
+            transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .iriv-usecase-card.collapsed .iriv-usecase-content {
+            transform: translateX(100%);
+        }
+
+        .iriv-usecase-card.expanded .iriv-usecase-content {
+            transform: translateX(0);
+        }
+
+        .iriv-usecase-preview {
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .iriv-usecase-preview h3 {
+            font-size: 20px;
+            color: var(--iriv-primary);
+            margin: 0;
+        }
+
+        .iriv-usecase-content h3 {
+            font-size: 20px;
+            color: var(--iriv-primary);
+            margin-bottom: 16px;
+        }
+
+        .iriv-usecase-problem,
+        .iriv-usecase-solution,
+        .iriv-usecase-outcome {
+            margin-bottom: 16px;
+        }
+
+        .iriv-usecase-problem strong,
+        .iriv-usecase-solution strong,
+        .iriv-usecase-outcome strong {
+            color: var(--iriv-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .iriv-usecase-link {
+            color: var(--iriv-accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .iriv-usecase-link:hover {
+            text-decoration: underline;
+        }
+
+        .iriv-usecases-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 24px;
+            gap: 20px;
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .iriv-usecases-wrapper {
+            position: relative;
+        }
+
+        .iriv-usecases-carousel {
+            position: relative;
+        }
+
+        .iriv-usecases-arrow {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: none;
+        }
+
+        .iriv-usecases-arrow-prev {
+            background: #E0E0E0;
+            color: #555555;
+        }
+
+        .iriv-usecases-arrow-next {
+            background: var(--iriv-primary);
+            color: #FFFFFF;
+        }
+
+        .iriv-usecases-arrow:disabled {
+            opacity: 0.4;
+            cursor: default;
+            box-shadow: none;
+        }
+
+        .iriv-usecases-counter {
+            min-width: 140px;
+            padding: 10px 32px;
+            border-radius: 999px;
+            background: #FFFFFF;
+            box-shadow: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--iriv-text-light);
+            text-align: center;
+            letter-spacing: 0.08em;
+        }
+
+        .iriv-usecases-counter-current {
+            color: var(--iriv-primary);
+            font-weight: 600;
+        }
+
+        .iriv-usecases-counter-separator {
+            margin: 0 4px;
+        }
+
+        .iriv-usecases-counter-total {
+            opacity: 0.6;
+        }
+
+        .iriv-usecases-dots {
+            display: none;
+        }
+
+        .iriv-usecases-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(1, 48, 104, 0.2);
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .iriv-usecases-dot.iriv-active {
+            width: 24px;
+            background: var(--iriv-accent);
+        }
+
+        /* Problem Section */
+        .iriv-problem-section {
+            background: var(--iriv-bg);
+            padding-bottom: 40px;
+        }
+
+        .iriv-intro-section {
+            padding-top: 32px;
+        }
+
+        .iriv-problem-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .iriv-problem-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .iriv-problem-visual {
+            display: flex;
+            justify-content: center;
+        }
+
+        .iriv-problem-visual img {
+            max-width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18);
+        }
+
+        .iriv-intro-centered {
+            text-align: center;
+        }
+
+        .iriv-intro-centered .iriv-problem-footnote {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 900px;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        .iriv-intro-centered a {
+            color: var(--iriv-accent);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 165, 220, 0.35);
+            padding-bottom: 2px;
+        }
+
+        .iriv-intro-centered a:hover {
+            color: var(--iriv-primary);
+            border-bottom-color: var(--iriv-primary);
+        }
+
+        .iriv-problem-eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--iriv-text-light);
+            margin-bottom: 12px;
+        }
+
+        .iriv-problem-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--iriv-primary);
+            margin-bottom: 32px;
+            line-height: 1.3;
+        }
+
+        .iriv-problem-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .iriv-problem-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 18px;
+            color: var(--iriv-text);
+            margin-bottom: 16px;
+        }
+
+        .iriv-problem-list li::before {
+            content: '•';
+            color: var(--iriv-highlight);
+            font-size: 20px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        .iriv-problem-footnote {
+            font-size: 16px;
+            color: var(--iriv-text-light);
+            max-width: 720px;
+        }
+
+        @media (max-width: 900px) {
+            .iriv-problem-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .iriv-problem-visual {
+                order: -1;
+            }
+        }
+
+        /* Credibility Section */
+        .iriv-credibility {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .iriv-diagram {
+            background: var(--iriv-bg-alt);
+            border-radius: var(--iriv-radius);
+            padding: 40px;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid var(--iriv-border);
+            overflow: hidden;
+        }
+
+        .iriv-diagram img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .iriv-credibility-badges {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .iriv-badge {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--iriv-accent);
+            border-radius: var(--iriv-radius);
+            font-weight: 600;
+            color: var(--iriv-primary);
+            font-size: 14px;
+        }
+
+        /* Developer Section */
+        .iriv-developer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .iriv-developer-card {
+            background: white;
+            padding: 32px;
+            border-radius: var(--iriv-radius);
+            box-shadow: 0 4px 20px var(--iriv-shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .iriv-developer-card:hover {
+            border-color: var(--iriv-accent);
+            transform: translateY(-4px);
+        }
+
+        .iriv-developer-card h3 {
+            font-size: 18px;
+            color: var(--iriv-primary);
+            margin-bottom: 12px;
+        }
+
+        .iriv-developer-card p {
+            color: var(--iriv-text-light);
+            font-size: 14px;
+        }
+
+        /* FAQ */
+        .iriv-faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .iriv-faq-item {
+            background: white;
+            border-radius: var(--iriv-radius);
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px var(--iriv-shadow);
+            overflow: hidden;
+        }
+
+        .iriv-faq-question {
+            padding: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--iriv-primary);
+            transition: background 0.3s ease;
+        }
+
+        .iriv-faq-question:hover {
+            background: var(--iriv-bg-alt);
+        }
+
+        .iriv-faq-toggle {
+            font-size: 24px;
+            color: var(--iriv-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .iriv-faq-item.active .iriv-faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .iriv-faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .iriv-faq-answer-content {
+            padding: 0 24px 24px;
+            color: var(--iriv-text-light);
+            line-height: 1.8;
+        }
+
+        .iriv-faq-item.active .iriv-faq-answer {
+            max-height: 500px;
+        }
+
+        /* Final CTA */
+        .iriv-final-cta {
+            background: linear-gradient(135deg, var(--iriv-primary) 0%, #014080 100%);
+            color: white;
+            padding: 72px 40px;
+            border-radius: var(--iriv-radius);
+            margin: 80px 0;
+        }
+
+        .iriv-final-cta h2 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .iriv-final-cta p {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        .iriv-contact-form {
+            max-width: 880px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px 24px;
+        }
+
+        .iriv-contact-form .iriv-form-full {
+            grid-column: 1 / -1;
+        }
+
+        .iriv-form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .iriv-form-input,
+        .iriv-form-select,
+        .iriv-form-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: none;
+            font-family: inherit;
+            font-size: 14px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+            color: #f5f7fa;
+            outline: none;
+            transition: box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .iriv-form-input::placeholder,
+        .iriv-form-textarea::placeholder {
+            color: rgba(245, 247, 250, 0.6);
+        }
+
+        .iriv-form-input:focus,
+        .iriv-form-select:focus,
+        .iriv-form-textarea:focus {
+            box-shadow: 0 0 0 1px var(--iriv-accent);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .iriv-form-textarea {
+            min-height: 112px;
+            resize: vertical;
+        }
+
+        .iriv-form-inline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .iriv-form-inline input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .iriv-contact-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 16px;
+        }
+
+        .iriv-contact-actions .iriv-btn-primary {
+            background: #ffffff;
+            color: var(--iriv-primary);
+            min-width: 180px;
+        }
+
+        .iriv-contact-actions .iriv-btn-primary:hover {
+            background: var(--iriv-bg-alt);
+        }
+
+        .iriv-contact-meta {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .iriv-contact-meta a {
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .iriv-contact-success {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #b5ffdd;
+            display: none;
+        }
+
+        /* Scroll Reveal */
+        .iriv-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .iriv-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .iriv-nav-links {
+                display: none;
+            }
+
+            .iriv-mobile-menu-toggle {
+                display: block;
+            }
+
+            .iriv-hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .iriv-hero-text h1 {
+                font-size: 32px;
+            }
+
+            .iriv-hero-text p {
+                font-size: 18px;
+            }
+
+            .iriv-section-title {
+                font-size: 28px;
+            }
+
+            .iriv-credibility {
+                grid-template-columns: 1fr;
+            }
+
+            .iriv-comparison-header,
+            .iriv-comparison-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .iriv-comparison-header > div:not(:first-child),
+            .iriv-comparison-row > div:not(:first-child) {
+                padding-left: 24px;
+            }
+
+            .iriv-final-cta h2 {
+                font-size: 28px;
+            }
+
+            .iriv-cta-group {
+                flex-direction: column;
+            }
+
+            .iriv-btn {
+                width: 100%;
+            }
+
+            .iriv-usecases-carousel {
+                max-width: 100%;
+            }
+
+            .iriv-usecases-buttons {
+                gap: 8px;
+                padding: 0 20px;
+                flex-wrap: nowrap;
+            }
+
+            .iriv-usecase-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .iriv-usecases-wrapper {
+                padding: 0 20px;
+            }
+
+            .iriv-usecases-carousel {
+                max-width: 100%;
+            }
+
+            .iriv-usecases-wrapper .iriv-usecases-arrow:first-of-type {
+                left: -10px;
+            }
+
+            .iriv-usecases-wrapper .iriv-usecases-arrow:last-of-type {
+                right: -10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iriv-container {
+                padding: 0 16px;
+            }
+
+            .iriv-section {
+                padding: 60px 0;
+            }
+
+            .iriv-hero {
+                padding: 40px 0 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="iriv-nav" role="navigation" aria-label="Main navigation">
+        <div class="iriv-container">
+            <div class="iriv-nav-content">
+                <div class="iriv-logo">IRIV EdgeAI CM5</div>
+                <ul class="iriv-nav-links">
+                    <li><a href="#overview" class="iriv-nav-link">Overview</a></li>
+                    <li><a href="#specs" class="iriv-nav-link">Specs</a></li>
+                    <li><a href="#compare" class="iriv-nav-link">Compare</a></li>
+                    <li><a href="#usecases" class="iriv-nav-link">Use Cases</a></li>
+                    <li><a href="#developers" class="iriv-nav-link">Developers</a></li>
+                    <li><a href="#faq" class="iriv-nav-link">FAQ</a></li>
+                </ul>
+                <button class="iriv-mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="overview" class="iriv-hero" aria-labelledby="hero-title">
+        <div class="iriv-container">
+            <div class="iriv-hero-content">
+                <div class="iriv-hero-text">
+                    <h1 id="hero-title">Industrial Edge AI Controller for Real-Time Vision</h1>
+                    <p>Up to 26 TOPS AI inference, fanless industrial enclosure, powered by Raspberry Pi CM5 ecosystem.</p>
+                    <ul class="iriv-hero-features">
+                        <li>Up to 26 TOPS AI (13/26 TOPS variants)</li>
+                        <li>Fanless metal enclosure for 24/7 deployment</li>
+                        <li>Multi-camera vision-ready</li>
+                        <li>Built for factory floors (reliability)</li>
+                    </ul>
+                    <div class="iriv-cta-group">
+                        <a href="#specs" class="iriv-btn iriv-btn-primary">View Technical Specs</a>
+                        <a href="#usecases" class="iriv-btn iriv-btn-secondary">See Use Cases</a>
+                    </div>
+                </div>
+                <div class="iriv-hero-image" aria-label="Product demo visuals" role="img">
+                    <img id="iriv-hero-gif" src="" alt="Edge AI vision demo" loading="lazy">
+                    <div class="iriv-hero-image-caption" id="iriv-hero-gif-caption">Edge AI Vision Demo</div>
+                </div>
+            </div>
+            <div class="iriv-trust-strip">
+                <span>Industrial</span>
+                <span>Fanless</span>
+                <span>Edge AI</span>
+                <span>CM5 Ecosystem</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="iriv-section iriv-problem-section" aria-labelledby="problem-title">
+        <div class="iriv-container">
+            <div class="iriv-problem-inner iriv-reveal">
+                <div class="iriv-problem-layout">
+                    <div>
+                        <div class="iriv-problem-eyebrow">Why edge AI now</div>
+                        <h2 id="problem-title" class="iriv-problem-title">
+                            While most factories still operate with outdated methods like…
+                        </h2>
+                        <ul class="iriv-problem-list">
+                            <li>Manual inspections that miss hidden defects</li>
+                            <li>Reactive maintenance only after breakdowns</li>
+                            <li>Unsafe zones with no monitoring</li>
+                            <li>Manual meter readings</li>
+                        </ul>
+                        <p class="iriv-problem-footnote">
+                            The industry’s top innovators are already leveraging Edge AI to run safer, smarter,
+                            and more sustainable operations in real time.
+                        </p>
+                    </div>
+                    <div class="iriv-problem-visual" aria-hidden="true">
+                        <img src="https://newsroom.intel.com/wp-content/uploads/2025/02/sequence_4.gif" alt="" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry 4.0 Context -->
+    <section class="iriv-section" aria-label="Industry 4.0 context">
+        <div class="iriv-container">
+            <div class="iriv-problem-inner iriv-intro-centered iriv-reveal">
+                <p class="iriv-problem-footnote">
+                    In the era of Industry 4.0, manufacturers, machine builders, and system integrators are under
+                    increasing pressure to deliver faster, smarter, and more connected solutions. However, most
+                    off‑the‑shelf embedded platforms fall short; they are either too bulky, too power‑hungry,
+                    not ruggedized, or simply too expensive for scalable deployment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro Video Section -->
+    <section class="iriv-section iriv-intro-section" aria-label="IRIV EdgeAI CM5 introduction video">
+        <div class="iriv-container">
+            <div class="iriv-problem-inner iriv-intro-centered iriv-reveal">
+                <p class="iriv-problem-footnote" style="margin-bottom: 32px;">
+                    Introducing the <a href="https://my.cytron.io/p-iriv-edge-ai-cm5" target="_blank" rel="noopener noreferrer">IRIV EdgeAI CM5</a>, a purpose‑built, compact industrial controller designed
+                    specifically to bridge the gap between affordability, performance, and industrial reliability.
+                    Housed in a fanless metal enclosure and packed with modern interfaces, the EdgeAI CM5 makes it
+                    easy to deploy AI vision, industrial automation, and digital control systems right at the edge,
+                    with no compromise.
+                </p>
+            </div>
+            <div class="iriv-reveal" style="max-width: 720px; margin: 0 auto;">
+                <div style="position: relative; padding-top: 50%; border-radius: 22px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); background:#000;">
+                    <iframe
+                        id="iriv-intro-video"
+                        src="https://www.youtube.com/embed/8aX3Se6KI74?rel=0&mute=1&playsinline=1"
+                        data-autoplay-src="https://www.youtube.com/embed/8aX3Se6KI74?autoplay=1&mute=1&playsinline=1&rel=0"
+                        title="IRIV EdgeAI CM5 Introduction"
+                        style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Specs -->
+    <section id="specs" class="iriv-section iriv-section-alt" aria-labelledby="specs-title">
+        <div class="iriv-container">
+            <h2 id="specs-title" class="iriv-section-title iriv-reveal">Tech Specs at a Glance</h2>
+            <p class="iriv-section-subtitle iriv-reveal">Everything you need to know about the IRIV EdgeAI CM5</p>
+            <div class="iriv-specs-grid">
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>Compute</h3>
+                    <p>Raspberry Pi CM5</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>RAM</h3>
+                    <p>8GB</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>Storage</h3>
+                    <p>32GB eMMC</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>AI Performance</h3>
+                    <p>13 TOPS / 26 TOPS</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>Camera</h3>
+                    <p>CSI Support (Multi-camera)</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>Connectivity</h3>
+                    <p>Ethernet / USB / PCIe</p>
+                </div>
+                <div class="iriv-spec-card iriv-reveal">
+                    <h3>Cooling</h3>
+                    <p>Fanless Enclosure</p>
+                </div>
+            </div>
+            <div class="iriv-spec-download">
+                <a
+                    href="https://docs.google.com/document/d/1c-OdqDxVR9OYU43wxlrLvDKK-tqbt_qHP0Djd0DKk4c/edit?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="iriv-btn iriv-btn-ghost"
+                >
+                    Download Spec Sheet
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Variant Comparison -->
+    <section id="compare" class="iriv-section" aria-labelledby="compare-title">
+        <div class="iriv-container">
+            <h2 id="compare-title" class="iriv-section-title iriv-reveal">Choose Your Variant</h2>
+            <p class="iriv-section-subtitle iriv-reveal">13 TOPS vs 26 TOPS – Find the right fit for your deployment</p>
+            <div class="iriv-comparison iriv-reveal">
+                <div class="iriv-comparison-header">
+                    <div>Feature</div>
+                    <div>13 TOPS</div>
+                    <div>26 TOPS</div>
+                </div>
+                <div class="iriv-comparison-row">
+                    <div>Best For</div>
+                    <div>Pilots & Testing</div>
+                    <div>Full Production Deployment</div>
+                </div>
+                <div class="iriv-comparison-row">
+                    <div>AI Complexity</div>
+                    <div>Standard Models</div>
+                    <div>Heavier Workloads</div>
+                </div>
+                <div class="iriv-comparison-row">
+                    <div>Camera Streams</div>
+                    <div>Fewer Concurrent</div>
+                    <div>More Concurrent</div>
+                </div>
+                <div class="iriv-comparison-row">
+                    <div>Recommendation</div>
+                    <div>Start here for evaluation</div>
+                    <div>Scale for production</div>
+                </div>
+            </div>
+            <div class="iriv-help-box iriv-reveal">
+                <h3>Not sure which to pick?</h3>
+                <p>Our technical team can help you choose the right variant based on your specific use case and requirements.</p>
+                <a href="#contact" class="iriv-btn iriv-btn-primary">Talk to Tech Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="usecases" class="iriv-section iriv-section-alt" aria-labelledby="usecases-title">
+        <div class="iriv-container">
+            <h2 id="usecases-title" class="iriv-section-title iriv-reveal">Problems → Solutions</h2>
+            <p class="iriv-section-subtitle iriv-reveal">Real-world applications powered by edge AI</p>
+            <div class="iriv-usecases-buttons iriv-reveal">
+                <button class="iriv-usecase-btn active" data-usecase-btn="0">Data Matrix Scanner</button>
+                <button class="iriv-usecase-btn" data-usecase-btn="1">Defect Detection</button>
+                <button class="iriv-usecase-btn" data-usecase-btn="2">PPE Compliance</button>
+                <button class="iriv-usecase-btn" data-usecase-btn="3">Parking Monitoring</button>
+                <button class="iriv-usecase-btn" data-usecase-btn="4">Restricted Zone Monitoring</button>
+                <button class="iriv-usecase-btn" data-usecase-btn="5">Pill Counter</button>
+            </div>
+            <div class="iriv-usecases-wrapper iriv-reveal">
+            <div class="iriv-usecases-carousel" aria-roledescription="carousel">
+                <div class="iriv-usecases-track">
+                    <div class="iriv-usecase-card expanded" data-usecase-index="0">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Data%20Matrix%20Scanner.gif" alt="Data matrix scanner on production line" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>Data Matrix Scanner</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>Data Matrix Scanner</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Misread or missing codes cause traceability gaps and rework.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>High-speed vision scans Data Matrix and barcodes inline to verify every unit.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>End-to-end traceability, fewer shipping errors, automated rejection of bad labels.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iriv-usecase-card collapsed" data-usecase-index="1">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Defect%20Detection.gif" alt="Defect detection on production line" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>Defect Detection</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>Defect Detection</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Human inspection is slow, subjective, and prone to errors in high-volume production.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>AI-powered vision systems detect defects with consistent accuracy at production speed.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>Faster inspection, higher accuracy, reduced waste, quality assurance.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iriv-usecase-card collapsed" data-usecase-index="2">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/PPE%20Detection.gif" alt="PPE compliance monitoring workers" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>PPE Compliance</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>PPE Compliance</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Manual monitoring of safety gear compliance is inconsistent and resource-intensive.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>Real-time AI detection ensures workers wear required PPE before entering restricted zones.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>Improved safety compliance, reduced incidents, automated reporting.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iriv-usecase-card collapsed" data-usecase-index="3">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Parking%20Monitoring%20System.gif" alt="Parking monitoring system" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>Parking Monitoring</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>Parking Monitoring</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Manual counting and occupancy tracking is inefficient and inaccurate.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>Real-time AI counting and tracking provides accurate occupancy data and analytics.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>Optimized space utilization, data-driven decisions, automated reporting.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iriv-usecase-card collapsed" data-usecase-index="4">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Restricted%20Monitoring%20Zone.gif" alt="Restricted zone monitoring for unauthorized access" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>Restricted Zone Monitoring</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>Restricted Zone Monitoring</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Unauthorized access to restricted areas poses safety and security risks.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>Continuous AI monitoring detects and alerts on unauthorized entry in real-time.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>Enhanced security, immediate alerts, compliance with safety regulations.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="iriv-usecase-card collapsed" data-usecase-index="5">
+                        <div class="iriv-usecase-image">
+                            <img src="https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/pill-counter.gif" alt="Pill counter system" loading="lazy">
+                        </div>
+                        <div class="iriv-usecase-preview">
+                            <h3>Pill Counter</h3>
+                        </div>
+                        <div class="iriv-usecase-content">
+                            <h3>Pill Counter</h3>
+                            <div class="iriv-usecase-problem">
+                                <strong>Problem:</strong>
+                                <span>Counting pills manually or with basic sensors is slow and inaccurate.</span>
+                            </div>
+                            <div class="iriv-usecase-solution">
+                                <strong>Solution:</strong>
+                                <span>Edge AI vision counts and verifies pills in motion for each pack or container.</span>
+                            </div>
+                            <div class="iriv-usecase-outcome">
+                                <strong>Outcome:</strong>
+                                <span>Accurate counting, reduced errors, and automated verification of pill quantities.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-usecases-nav" aria-label="Use case navigation">
+                    <button class="iriv-usecases-arrow iriv-usecases-arrow-prev" type="button" aria-label="Previous use case">
+                        ‹
+                    </button>
+                    <div class="iriv-usecases-counter" aria-live="polite">
+                        <span class="iriv-usecases-counter-current">01</span>
+                        <span class="iriv-usecases-counter-separator">/</span>
+                        <span class="iriv-usecases-counter-total">06</span>
+                    </div>
+                    <button class="iriv-usecases-arrow iriv-usecases-arrow-next" type="button" aria-label="Next use case">
+                        ›
+                    </button>
+                    <div class="iriv-usecases-dots" role="tablist" aria-label="Select use case slide">
+                        <button class="iriv-usecases-dot iriv-active" type="button" role="tab" aria-selected="true" aria-label="Data Matrix Scanner"></button>
+                        <button class="iriv-usecases-dot" type="button" role="tab" aria-selected="false" aria-label="Defect Detection"></button>
+                        <button class="iriv-usecases-dot" type="button" role="tab" aria-selected="false" aria-label="PPE Compliance"></button>
+                        <button class="iriv-usecases-dot" type="button" role="tab" aria-selected="false" aria-label="Parking Monitoring"></button>
+                        <button class="iriv-usecases-dot" type="button" role="tab" aria-selected="false" aria-label="Restricted Zone Monitoring"></button>
+                        <button class="iriv-usecases-dot" type="button" role="tab" aria-selected="false" aria-label="Pill Counter"></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credibility Section -->
+    <section class="iriv-section" aria-labelledby="credibility-title">
+        <div class="iriv-container">
+            <h2 id="credibility-title" class="iriv-section-title iriv-reveal">Built for Industrial Reality</h2>
+            <div class="iriv-credibility">
+                <div class="iriv-diagram iriv-reveal" aria-label="Product diagram showing ports, metal body, and mounting points">
+                    <img src="https://static.cytron.io/image/cache/catalog/products/V-IRIV-EAI5/iriv-edgeai-cm5-view-1-1-800x800.png?_gl=1*75odd*_gcl_aw*R0NMLjE3Njg4OTI3MTcuQ2p3S0NBaUF5YmZMQmhBakVpd0FJMG1CQnJOZFpBaEVCeV8yWTZDcnIxYkhBRTVwTUc3M0s1LUI0M2NST2xuZ3pBMEI2OXRmWk0xZEZSb0NnSThRQXZEX0J3RQ..*_gcl_au*MTQzMzg2ODI0OC4xNzY1NDM1MzEyLjY1NDU0MDg3LjE3NjcwNzU5MjIuMTc2NzA3NTk1NA.." alt="IRIV EdgeAI CM5 Product Diagram">
+                </div>
+                <div class="iriv-reveal">
+                    <h3 style="font-size: 28px; color: var(--iriv-primary); margin-bottom: 20px;">Rugged. Reliable. Ready.</h3>
+                    <p style="font-size: 16px; color: var(--iriv-text-light); margin-bottom: 20px; line-height: 1.8;">
+                        The IRIV EdgeAI CM5 is engineered for industrial environments. Its fanless metal enclosure ensures silent, maintenance-free operation even in harsh conditions. Designed for 24/7 deployment, it delivers consistent performance without the reliability concerns of consumer-grade hardware.
+                    </p>
+                    <p style="font-size: 16px; color: var(--iriv-text-light); margin-bottom: 20px; line-height: 1.8;">
+                        With robust connectivity options and mounting solutions built-in, integration into your existing infrastructure is straightforward. This is hardware built for the long run.
+                    </p>
+                    <div class="iriv-credibility-badges">
+                        <div class="iriv-badge">Fanless</div>
+                        <div class="iriv-badge">Enclosure</div>
+                        <div class="iriv-badge">Deploy 24/7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Section -->
+    <section id="developers" class="iriv-section iriv-section-alt" aria-labelledby="developers-title">
+        <div class="iriv-container">
+            <h2 id="developers-title" class="iriv-section-title iriv-reveal">Ready for Developers & Integrators</h2>
+            <p class="iriv-section-subtitle iriv-reveal">Everything you need to get started quickly</p>
+            <div class="iriv-developer-grid">
+                <a href="https://my.cytron.io/tutorial/getting-started-with-iriv-edgeai-cm5" target="_blank" rel="noopener noreferrer" class="iriv-developer-card iriv-reveal" tabindex="0" role="button" aria-label="Quick Start Guide">
+                    <h3>Quick Start Guide</h3>
+                    <p>Get up and running in minutes with our step-by-step setup guide.</p>
+                </a>
+                <a href="https://youtu.be/bgEeMAvFhkg" target="_blank" rel="noopener noreferrer" class="iriv-developer-card iriv-reveal" tabindex="0" role="button" aria-label="Tutorial Videos">
+                    <h3>Tutorial Videos</h3>
+                    <p>Video tutorials covering setup, integration, and advanced features.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="iriv-section" aria-labelledby="faq-title">
+        <div class="iriv-container">
+            <h2 id="faq-title" class="iriv-section-title iriv-reveal">Frequently Asked Questions</h2>
+            <div class="iriv-faq-list">
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-1">
+                        <span>What is TOPS and how do I choose between 13 TOPS and 26 TOPS?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-1">
+                        <div class="iriv-faq-answer-content">
+                            TOPS (Tera Operations Per Second) measures AI inference performance. 13 TOPS is ideal for pilot projects, standard models, and fewer concurrent camera streams. Choose 26 TOPS for production deployments, complex AI models, and multiple simultaneous camera feeds. If you're unsure, start with 13 TOPS for evaluation and scale up as needed.
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-2">
+                        <span>Does it support multi-camera setups?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-2">
+                        <div class="iriv-faq-answer-content">
+                            Yes, the IRIV EdgeAI CM5 supports multiple CSI cameras simultaneously. The number of concurrent streams depends on your AI model complexity and the TOPS variant you choose. The 26 TOPS variant can handle more concurrent camera feeds than the 13 TOPS version.
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-3">
+                        <span>Can it run offline without internet connectivity?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-3">
+                        <div class="iriv-faq-answer-content">
+                            Absolutely. The IRIV EdgeAI CM5 is designed for edge computing, meaning all AI inference happens locally on the device. It operates completely offline once your models are deployed. Internet connectivity is only needed for initial setup, model updates, or if you choose to send data to cloud services.
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-4">
+                        <span>What's the typical deployment workflow?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-4">
+                        <div class="iriv-faq-answer-content">
+                            Typical workflow: 1) Unbox and mount the device, 2) Connect cameras and network, 3) Flash the OS image, 4) Deploy your AI models (or use pre-trained samples), 5) Configure inference parameters, 6) Integrate with your systems (MQTT/Node-RED/REST), 7) Monitor and optimize. Our Quick Start Guide covers each step in detail.
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-5">
+                        <span>Can I integrate with MQTT, Node-RED, or REST APIs?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-5">
+                        <div class="iriv-faq-answer-content">
+                            Yes, the IRIV EdgeAI CM5 supports standard industrial protocols. You can publish inference results via MQTT, create automation workflows in Node-RED, or expose REST APIs for integration with your existing systems. The SDK includes examples and libraries for all these integration methods.
+                        </div>
+                    </div>
+                </div>
+                <div class="iriv-faq-item iriv-reveal">
+                    <div class="iriv-faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-6">
+                        <span>What support does Cytron provide?</span>
+                        <span class="iriv-faq-toggle">▼</span>
+                    </div>
+                    <div class="iriv-faq-answer" id="faq-6">
+                        <div class="iriv-faq-answer-content">
+                            Cytron provides comprehensive support including technical documentation, SDK with examples, GitHub repositories, tutorial videos, and direct technical support. Our team can assist with deployment planning, model optimization, and integration guidance. Contact our technical team for personalized assistance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="contact" class="iriv-section iriv-section-alt">
+        <div class="iriv-container">
+            <div class="iriv-final-cta iriv-reveal">
+                <h2>Ready to Deploy Edge AI in Your Facility?</h2>
+                <p>Share your project details and our technical team will contact you.</p>
+                <form id="iriv-contact-form" class="iriv-contact-form" action="https://formsubmit.co/iffah@cytron.io" method="POST" novalidate>
+                    <!-- FormSubmit configuration -->
+                    <input type="hidden" name="_cc" value="iffah@cytron.io">
+                    <input type="hidden" name="_subject" value="New IRIV EdgeAI CM5 Enquiry">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="#contact">
+                    <input type="text" name="_honey" style="display:none">
+
+                    <div class="iriv-form-field">
+                        <label for="iriv-name" class="iriv-form-label">Name*</label>
+                        <input id="iriv-name" name="name" type="text" class="iriv-form-input" placeholder="Your name" required>
+                    </div>
+                    <div class="iriv-form-field">
+                        <label for="iriv-email" class="iriv-form-label">Work Email*</label>
+                        <input id="iriv-email" name="email" type="email" class="iriv-form-input" placeholder="you@company.com" required>
+                    </div>
+                    <div class="iriv-form-field">
+                        <label for="iriv-company" class="iriv-form-label">Company*</label>
+                        <input id="iriv-company" name="company" type="text" class="iriv-form-input" placeholder="Organization name" required>
+                    </div>
+                    <div class="iriv-form-field">
+                        <label for="iriv-role" class="iriv-form-label">Role</label>
+                        <input id="iriv-role" name="role" type="text" class="iriv-form-input" placeholder="e.g. Automation Engineer, System Integrator">
+                    </div>
+                    <div class="iriv-form-full iriv-form-field">
+                        <label for="iriv-usecase" class="iriv-form-label">Project / Use Case*</label>
+                        <textarea id="iriv-usecase" name="usecase" class="iriv-form-textarea" placeholder="Briefly describe your application, camera setup, and expected TOPS requirement." required></textarea>
+                    </div>
+                    <div class="iriv-form-full iriv-form-field">
+                        <label class="iriv-form-label">Preferred Variant</label>
+                        <div class="iriv-form-inline">
+                            <label><input type="radio" name="variant" value="13 TOPS" checked> 13 TOPS (pilot, lighter workloads)</label>
+                            <label><input type="radio" name="variant" value="26 TOPS"> 26 TOPS (production, heavier models)</label>
+                            <label><input type="radio" name="variant" value="Not sure"> Not sure yet</label>
+                        </div>
+                    </div>
+                    <div class="iriv-form-full iriv-form-field">
+                        <label class="iriv-form-label">Region</label>
+                        <div class="iriv-form-inline">
+                            <label><input type="radio" name="region" value="Malaysia/SEA" checked> Malaysia / SEA</label>
+                            <label><input type="radio" name="region" value="Global"> Global / Other</label>
+                        </div>
+                    </div>
+                    <div class="iriv-form-full iriv-form-field">
+                        <div class="iriv-form-inline">
+                            <input id="iriv-consent" name="consent" type="checkbox" required>
+                            <label for="iriv-consent">I agree to be contacted by Cytron's team regarding this project.</label>
+                        </div>
+                    </div>
+                    <div class="iriv-form-full iriv-contact-actions">
+                        <button type="submit" class="iriv-btn iriv-btn-primary">Submit Project Details</button>
+                        <div class="iriv-contact-meta">
+                            Prefer to explore specs first?
+                            <a href="https://my.cytron.io/p-iriv-edge-ai-cm5" target="_blank" rel="noopener noreferrer">View product page</a>.
+                            <div id="iriv-contact-success" class="iriv-contact-success" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.iriv-faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.closest('.iriv-faq-item');
+                const isActive = item.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.iriv-faq-item').forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                    const q = faqItem.querySelector('.iriv-faq-question');
+                    if (q) {
+                        q.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Keyboard navigation
+            question.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.iriv-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active section indicator in nav
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.iriv-nav-link');
+
+        function updateActiveNav() {
+            let current = '';
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
+
+        // Mobile menu toggle (basic implementation)
+        const mobileMenuToggle = document.querySelector('.iriv-mobile-menu-toggle');
+        const navLinksContainer = document.querySelector('.iriv-nav-links');
+        
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                if (navLinksContainer) {
+                    navLinksContainer.style.display = isExpanded ? 'none' : 'flex';
+                }
+            });
+        }
+
+        // Hero GIF carousel (5-second rotation)
+        (function () {
+            const heroImg = document.getElementById('iriv-hero-gif');
+            const heroCaption = document.getElementById('iriv-hero-gif-caption');
+            if (!heroImg || !heroCaption) return;
+
+            const demos = [
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Data%20Matrix%20Scanner.gif',
+                    label: 'Data Matrix Scanner – High-speed code reading'
+                },
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Defect%20Detection.gif',
+                    label: 'Defect Detection – QA inspection on the line'
+                },
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/PPE%20Detection.gif',
+                    label: 'PPE Compliance – Safety compliance monitoring'
+                },
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Parking%20Monitoring%20System.gif',
+                    label: 'Parking Monitoring – Occupancy and flow tracking'
+                },
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Restricted%20Monitoring%20Zone.gif',
+                    label: 'Restricted Zone – Unauthorized access detection'
+                },
+                {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/pill-counter.gif',
+                    label: 'Pill Counter – High-precision pill counting'
+                }
+            ];
+
+            let index = 0;
+
+            function showDemo(i) {
+                const demo = demos[i];
+                heroImg.src = demo.src;
+                heroImg.alt = demo.label;
+                heroCaption.textContent = demo.label;
+            }
+
+            showDemo(index);
+
+            const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                setInterval(() => {
+                    index = (index + 1) % demos.length;
+                    showDemo(index);
+                }, 5000);
+            }
+        })();
+
+        // Intro video autoplay on view
+        (function () {
+            const video = document.getElementById('iriv-intro-video');
+            if (!video || !('IntersectionObserver' in window)) return;
+
+            const autoSrc = video.getAttribute('data-autoplay-src');
+            let hasPlayed = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasPlayed) {
+                        if (autoSrc) {
+                            video.src = autoSrc;
+                            hasPlayed = true;
+                            observer.disconnect();
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            observer.observe(video);
+        })();
+
+        // Use case carousel - buttons control, first shows details by default
+        (function () {
+            const wrapper = document.querySelector('.iriv-usecases-wrapper');
+            const carousel = document.querySelector('.iriv-usecases-carousel');
+            if (!carousel || !wrapper) return;
+
+            const track = carousel.querySelector('.iriv-usecases-track');
+            const slides = Array.from(carousel.querySelectorAll('.iriv-usecase-card'));
+            const buttons = Array.from(document.querySelectorAll('.iriv-usecase-btn'));
+            const prevBtn = wrapper.querySelector('.iriv-usecases-arrow-prev');
+            const nextBtn = wrapper.querySelector('.iriv-usecases-arrow-next');
+            const dots = Array.from(carousel.querySelectorAll('.iriv-usecases-dot'));
+            const counterCurrent = document.querySelector('.iriv-usecases-counter-current');
+            const counterTotal = document.querySelector('.iriv-usecases-counter-total');
+
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            if (counterTotal) {
+                counterTotal.textContent = String(totalSlides).padStart(2, '0');
+            }
+
+            function updateCarousel(index) {
+                const maxIndex = slides.length - 1;
+
+                if (index < 0) index = maxIndex;
+                if (index > maxIndex) index = 0;
+
+                currentIndex = index;
+
+                // Always show 1 card at a time
+                const offset = -currentIndex * 100;
+                track.style.transform = `translateX(${offset}%)`;
+
+                // Update counter
+                if (counterCurrent) {
+                    counterCurrent.textContent = String(currentIndex + 1).padStart(2, '0');
+                }
+
+                // Update button states
+                buttons.forEach((btn, i) => {
+                    const isActive = i === currentIndex;
+                    btn.classList.toggle('active', isActive);
+                });
+
+                // Update dots (kept for potential future use)
+                dots.forEach((dot, i) => {
+                    const isActive = i === currentIndex;
+                    dot.classList.toggle('iriv-active', isActive);
+                    dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                });
+
+                // Update arrow disabled state
+                if (prevBtn && nextBtn) {
+                    prevBtn.disabled = currentIndex === 0;
+                    nextBtn.disabled = currentIndex === maxIndex;
+                }
+            }
+
+            function showUseCase(index) {
+                // Collapse all cards first (slide details to right)
+                slides.forEach((card, i) => {
+                    if (i === index) {
+                        // This is the selected card - expand it
+                        card.classList.remove('collapsed');
+                        card.classList.add('expanded');
+                    } else {
+                        // Other cards - collapse them (details slide right)
+                        card.classList.remove('expanded');
+                        card.classList.add('collapsed');
+                    }
+                });
+
+                // Update carousel position
+                updateCarousel(index);
+            }
+
+            // Button click handlers
+            buttons.forEach((btn, i) => {
+                btn.addEventListener('click', () => {
+                    showUseCase(i);
+                });
+            });
+
+            // Arrow and dot handlers (optional, for backward compatibility)
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    const newIndex = currentIndex - 1 < 0 ? slides.length - 1 : currentIndex - 1;
+                    showUseCase(newIndex);
+                });
+                nextBtn.addEventListener('click', () => {
+                    const newIndex = (currentIndex + 1) % slides.length;
+                    showUseCase(newIndex);
+                });
+            }
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    showUseCase(i);
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                updateCarousel(currentIndex);
+            });
+
+            // Initialize - first card expanded with details visible, others collapsed
+            slides.forEach((card, i) => {
+                if (i === 0) {
+                    card.classList.remove('collapsed');
+                    card.classList.add('expanded');
+                    // Set transform immediately without animation for initial load
+                    const content = card.querySelector('.iriv-usecase-content');
+                    if (content) {
+                        content.style.transition = 'none';
+                        content.style.transform = 'translateX(0)';
+                        setTimeout(() => {
+                            content.style.transition = '';
+                        }, 10);
+                    }
+                } else {
+                    card.classList.remove('expanded');
+                    card.classList.add('collapsed');
+                }
+            });
+            updateCarousel(0);
+        })();
+
+        // Contact form with FormSubmit
+        (function () {
+            const form = document.getElementById('iriv-contact-form');
+            if (!form) return;
+
+            const successEl = document.getElementById('iriv-contact-success');
+
+            form.addEventListener('submit', function (e) {
+                // Let FormSubmit handle the submission
+                // Just show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                
+                if (successEl) {
+                    successEl.style.display = 'none';
+                }
+
+                // FormSubmit will handle the redirect via _next parameter
+                // If you want to show a message before redirect, you can add it here
+                // But FormSubmit will redirect to the _next URL on success
+            });
+        })();
+    </script>
+</body>
+</html>
+
