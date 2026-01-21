@@ -213,28 +213,24 @@
         }
 
         .iriv-hero-image {
-            background: linear-gradient(135deg, var(--iriv-primary) 0%, var(--iriv-accent) 100%);
-            border-radius: var(--iriv-radius);
+            background: transparent;
             padding: 0;
-            box-shadow: 0 20px 60px var(--iriv-shadow);
-            aspect-ratio: 4/3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-            text-align: center;
+            box-shadow: none;
+            display: block;
             position: relative;
-            overflow: hidden;
+            text-align: center;
         }
 
         .iriv-hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: var(--iriv-radius);
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             display: block;
+            margin: 0 auto;
+            border-radius: var(--iriv-radius);
+            box-shadow: 0 14px 40px var(--iriv-shadow);
         }
 
         .iriv-hero-image-caption {
@@ -247,6 +243,7 @@
             border-radius: 999px;
             font-size: 12px;
             letter-spacing: 0.02em;
+            color: #FFFFFF;
         }
 
         .iriv-trust-strip {
@@ -1249,7 +1246,7 @@
                     <ul class="iriv-hero-features">
                         <li>Up to 26 TOPS AI (13/26 TOPS variants)</li>
                         <li>Fanless metal enclosure for 24/7 deployment</li>
-                        <li>Multi-camera vision-ready</li>
+                        <li>Flexible multi-camera interface support</li>
                         <li>Built for factory floors (reliability)</li>
                     </ul>
                     <div class="iriv-cta-group">
@@ -1367,11 +1364,11 @@
                 </div>
                 <div class="iriv-spec-card iriv-reveal">
                     <h3>Camera</h3>
-                    <p>CSI Support (Multi-camera)</p>
+                    <p>CSI/USB/GigE (Multi-camera)</p>
                 </div>
                 <div class="iriv-spec-card iriv-reveal">
                     <h3>Connectivity</h3>
-                    <p>Ethernet / USB / PCIe</p>
+                    <p>WIFI/RS485/Ethernet/4G</p>
                 </div>
                 <div class="iriv-spec-card iriv-reveal">
                     <h3>Cooling</h3>
@@ -1434,8 +1431,11 @@
     <!-- Use Cases -->
     <section id="usecases" class="iriv-section iriv-section-alt" aria-labelledby="usecases-title">
         <div class="iriv-container">
-            <h2 id="usecases-title" class="iriv-section-title iriv-reveal">Problems → Solutions</h2>
+            <h2 id="usecases-title" class="iriv-section-title iriv-reveal">Example Applications powered by IRIV EdgeAI</h2>
             <p class="iriv-section-subtitle iriv-reveal">Real-world applications powered by edge AI</p>
+            <p class="iriv-section-subtitle iriv-reveal" style="margin-top: 8px; font-size: 13px;">
+                Note: Examples shown are for demonstration only. Custom software development is required.
+            </p>
             <div class="iriv-usecases-buttons iriv-reveal">
                 <button class="iriv-usecase-btn active" data-usecase-btn="0">Data Matrix Scanner</button>
                 <button class="iriv-usecase-btn" data-usecase-btn="1">Defect Detection</button>
@@ -1911,16 +1911,16 @@
 
             const demos = [
                 {
+                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/PPE%20Detection.gif',
+                    label: 'PPE Compliance – Safety compliance monitoring'
+                },
+                {
                     src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Data%20Matrix%20Scanner.gif',
                     label: 'Data Matrix Scanner – High-speed code reading'
                 },
                 {
                     src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Defect%20Detection.gif',
                     label: 'Defect Detection – QA inspection on the line'
-                },
-                {
-                    src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/PPE%20Detection.gif',
-                    label: 'PPE Compliance – Safety compliance monitoring'
                 },
                 {
                     src: 'https://raw.githubusercontent.com/yoshiosenpai/Industry-media/main/Parking%20Monitoring%20System.gif',
